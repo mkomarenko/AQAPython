@@ -1,0 +1,6 @@
+[
+  "Phase1/test_fibonacci.py::TestFibonacci::()::test_fib_ten",
+  "Phase1/test_fibonacci.py::TestFibonacci::()::test_fib_zero",
+  "Phase1/test_fibonacci.py::TestFibonacci::()::test_fib_one",
+  "Phase1/test_fibonacci.py::TestFibonacci::()::test_fib_negative"
+]
