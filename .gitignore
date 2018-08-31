@@ -1,4 +1,4 @@
-.idea
-.pytest_cache
-venv
+*/.idea
+*/.pytest_cache
+*/venv
 
