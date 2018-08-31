@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="1fb1cec7-b8c3-410a-8241-fe0ae348713f" name="Default Changelist" comment="" />
+    <list default="true" id="1fb1cec7-b8c3-410a-8241-fe0ae348713f" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/../Phase1/Phase1/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/../Phase1/Fibonacci/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Phase1/Phase1/fibonacci.py" beforeDir="false" afterPath="$PROJECT_DIR$/../Phase1/Fibonacci/fibonacci.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Phase1/Phase1/test_fibonacci.py" beforeDir="false" afterPath="$PROJECT_DIR$/../Phase1/Fibonacci/test_fibonacci.py" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -46,7 +50,7 @@
   <component name="FileEditorManager">
     <leaf>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Phase1/fibonacci.py">
+        <entry file="file://$PROJECT_DIR$/../Phase1/Fibonacci/fibonacci.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="119">
               <caret line="7" column="8" selection-start-line="7" selection-start-column="8" selection-end-line="7" selection-end-column="8" />
@@ -55,7 +59,7 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/Phase1/test_fibonacci.py">
+        <entry file="file://$PROJECT_DIR$/../Phase1/Fibonacci/test_fibonacci.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="255">
               <caret line="15" column="27" selection-start-line="15" selection-start-column="27" selection-end-line="15" selection-end-column="27" />
@@ -67,16 +71,16 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/requirements.txt">
+        <entry file="file://$PROJECT_DIR$/../Phase1/requirements.txt">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="102">
-              <caret line="6" column="13" lean-forward="true" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
+              <caret line="6" column="13" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Phase1/__init__.py">
+        <entry file="file://$PROJECT_DIR$/../Phase1/Fibonacci/__init__.py">
           <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
@@ -118,22 +122,13 @@
         <subPane>
           <expand>
             <path>
-              <item name="aqapython" type="b2602c69:ProjectViewProjectNode" />
-              <item name="aqapython" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="aqapython" type="b2602c69:ProjectViewProjectNode" />
-              <item name="aqapython" type="462c0819:PsiDirectoryNode" />
+              <item name="Phase1" type="b2602c69:ProjectViewProjectNode" />
               <item name="Phase1" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="aqapython" type="b2602c69:ProjectViewProjectNode" />
-              <item name="aqapython" type="462c0819:PsiDirectoryNode" />
-              <item name="venv" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="aqapython" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+              <item name="Phase1" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Phase1" type="462c0819:PsiDirectoryNode" />
+              <item name="Fibonacci" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -141,6 +136,11 @@
       </pane>
       <pane id="Scope" />
     </panes>
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\repos\" />
+    </key>
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -338,7 +338,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1066" extended-state="7" />
+    <frame x="-8" y="-8" width="1936" height="1066" extended-state="6" />
     <layout>
       <window_info id="Favorites" side_tool="true" />
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24973656" />
@@ -367,24 +367,24 @@
     <option name="LAST_COMMIT_MESSAGE" value="fix text" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/Phase1/__init__.py">
+    <entry file="file://$PROJECT_DIR$/../Phase1/Fibonacci/__init__.py">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/requirements.txt">
+    <entry file="file://$PROJECT_DIR$/../Phase1/requirements.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="102">
-          <caret line="6" column="13" lean-forward="true" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
+          <caret line="6" column="13" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Phase1/fibonacci.py">
+    <entry file="file://$PROJECT_DIR$/../Phase1/Fibonacci/fibonacci.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="119">
           <caret line="7" column="8" selection-start-line="7" selection-start-column="8" selection-end-line="7" selection-end-column="8" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Phase1/test_fibonacci.py">
+    <entry file="file://$PROJECT_DIR$/../Phase1/Fibonacci/test_fibonacci.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="255">
           <caret line="15" column="27" selection-start-line="15" selection-start-column="27" selection-end-line="15" selection-end-column="27" />
