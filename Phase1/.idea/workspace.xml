@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="1fb1cec7-b8c3-410a-8241-fe0ae348713f" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/../Phase1/Phase1/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/../Phase1/Fibonacci/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Phase1/Phase1/fibonacci.py" beforeDir="false" afterPath="$PROJECT_DIR$/../Phase1/Fibonacci/fibonacci.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Phase1/Phase1/test_fibonacci.py" beforeDir="false" afterPath="$PROJECT_DIR$/../Phase1/Fibonacci/test_fibonacci.py" afterDir="false" />
-    </list>
+    <list default="true" id="1fb1cec7-b8c3-410a-8241-fe0ae348713f" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

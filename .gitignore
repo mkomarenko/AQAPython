@@ -1,4 +1,4 @@
-aqapython/.idea
-aqapython/.pytest_cache
-aqapython/venv
+.idea
+.pytest_cache
+venv
 
