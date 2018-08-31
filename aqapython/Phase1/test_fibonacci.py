@@ -13,4 +13,4 @@ class TestFibonacci:
         assert fib(1) == [0]
 
     def test_fib_negative(self):
-        assert fib(-1) == [];
+        assert fib(-1) == []
