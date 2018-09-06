@@ -1,6 +1,3 @@
-import pytest
-
-
 class JsonFixtures:
     @staticmethod
     def get_auth_data():
