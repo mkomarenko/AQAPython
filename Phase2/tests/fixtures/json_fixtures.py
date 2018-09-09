@@ -21,7 +21,7 @@ class JsonFixtures:
         }
 
     @staticmethod
-    def get_new_issue_json(summary, description, issue_type):
+    def get_new_issue_json(summary, description, issue_type, priority):
         return {
             "fields": {
                 "project":
@@ -32,12 +32,15 @@ class JsonFixtures:
                 "description": description,
                 "issuetype": {
                     "name": issue_type
-                }
+                    },
+                "priority": {
+                    "name": priority
+                    }
             }
         }
 
     @staticmethod
-    def get_update_issue_json(summary, priority, asignee_name):
+    def get_update_issue_json(summary, priority, assignee_name):
         return {
             "fields": {
                 "summary": summary,
@@ -45,7 +48,16 @@ class JsonFixtures:
                     "name": priority
                 },
                 "assignee": {
-                    "name": asignee_name
+                    "name": assignee_name
                 }
             }
+        }
+
+    @staticmethod
+    def get_search_issue_json(reporter, maxresult, fields):
+        return {
+            "jql": "project = AQAPYTHON",
+            "startAt": 0,
+            "maxResults": maxresult,
+            "fields": fields
         }
