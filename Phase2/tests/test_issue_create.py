@@ -7,12 +7,13 @@ from Phase2.tests.fixtures.json_fixtures import JsonFixtures
 class TestJiraIssueCreate:
     jira_url = base_url + '/rest/api/2/issue/'
     test_data = [
-        (JsonFixtures.get_new_issue_json("Maxim test issue", "Maxim test issue", "Bug"), 201, jira_url),
+        (JsonFixtures.get_new_issue_json("Maxim test issue", "Maxim test issue", "Bug"), 201,
+         "'self': '" + jira_url),
         (JsonFixtures.get_new_issue_json("", "Maxim test issue", "Bug"), 400,
-         'You must specify a summary of the issue.'),
+         "You must specify a summary of the issue."),
         (JsonFixtures.get_new_issue_json(
             "Maxim test Maxim test Maxim test Maxim test Maxim test Maxim test Maxim test Maxim test Maxim test Maxim test Maxim test Maxim test Maxim test Maxim test Maxim test Maxim test Maxim test Maxim test Maxim test Maxim test Maxim test Maxim test Maxim test 123",
-            "Maxim test issue", "Bug"), 400, 'Summary must be less than 255 characters.'),
+            "Maxim test issue", "Bug"), 400, "Summary must be less than 255 characters."),
     ]
 
     @pytest.mark.parametrize("issue_json, expected_rc, expected_text", test_data)
