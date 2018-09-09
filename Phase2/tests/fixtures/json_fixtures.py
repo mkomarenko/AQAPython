@@ -4,7 +4,7 @@ class JsonFixtures:
         return {
             "username": "Maksym_Komarenko",
             "password": "Mk810426@odsu_"
-            }
+        }
 
     @staticmethod
     def get_wrong_username():
@@ -21,17 +21,31 @@ class JsonFixtures:
         }
 
     @staticmethod
-    def get_issue_json(summary):
+    def get_new_issue_json(summary, description, issue_type):
         return {
             "fields": {
                 "project":
                     {
-                        "key": "TEST"
+                        "key": "AQAPYTHON"
                     },
                 "summary": summary,
-                "description": "Creating of an issue using project keys and issue type names using the REST API",
+                "description": description,
                 "issuetype": {
-                    "name": "Bug"
+                    "name": issue_type
                 }
-               }
+            }
+        }
+
+    @staticmethod
+    def get_update_issue_json(summary, priority, asignee_name):
+        return {
+            "fields": {
+                "summary": summary,
+                "priority": {
+                    "name": priority
+                },
+                "assignee": {
+                    "name": asignee_name
+                }
+            }
         }
