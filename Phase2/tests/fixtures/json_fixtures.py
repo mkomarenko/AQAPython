@@ -54,10 +54,9 @@ class JsonFixtures:
         }
 
     @staticmethod
-    def get_search_issue_json(reporter, maxresult, fields):
+    def get_search_issue_json(jql, fields):
         return {
-            "jql": "project = AQAPYTHON",
+            "jql": jql,
             "startAt": 0,
-            "maxResults": maxresult,
             "fields": fields
         }
