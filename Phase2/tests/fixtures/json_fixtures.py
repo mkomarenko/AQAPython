@@ -21,7 +21,7 @@ class JsonFixtures:
         }
 
     @staticmethod
-    def get_new_issue_json(summary, description, issue_type, priority):
+    def get_new_issue_json(summary, description, issue_type, priority, assignee):
         return {
             "fields": {
                 "project":
@@ -32,15 +32,18 @@ class JsonFixtures:
                 "description": description,
                 "issuetype": {
                     "name": issue_type
-                    },
+                },
                 "priority": {
                     "name": priority
-                    }
+                },
+                "assignee": {
+                    "name": assignee
+                }
             }
         }
 
     @staticmethod
-    def get_update_issue_json(summary, priority, assignee_name):
+    def get_update_issue_json(summary, priority, assignee):
         return {
             "fields": {
                 "summary": summary,
@@ -48,7 +51,7 @@ class JsonFixtures:
                     "name": priority
                 },
                 "assignee": {
-                    "name": assignee_name
+                    "name": assignee
                 }
             }
         }
