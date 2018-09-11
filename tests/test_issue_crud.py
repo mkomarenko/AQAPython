@@ -1,5 +1,5 @@
 import pytest
-from tests.jira_web_service import *
+from rest.jira_web_service import *
 
 
 class TestJiraIssueCRUD:
