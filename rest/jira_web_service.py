@@ -1,5 +1,5 @@
 import requests
-from tests.jira_globals import *
+from globals.jira_globals import *
 from tests.fixtures.json_fixtures import JsonFixtures
 
 
