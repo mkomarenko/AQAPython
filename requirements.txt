@@ -1,3 +1,4 @@
+selenium
 apipkg==1.5
 atomicwrites==1.2.1
 attrs==18.1.0
