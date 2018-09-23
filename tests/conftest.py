@@ -1,10 +1,14 @@
 import pytest
+from selenium.webdriver.support.wait import WebDriverWait
 
 
 @pytest.fixture(scope="class")
 def driver_init(request):
     from selenium import webdriver
-    web_driver = webdriver.Chrome()
+    from webdriver_manager.chrome import ChromeDriverManager
+    web_driver = webdriver.Chrome(ChromeDriverManager().install())
+    web_driver_wait = WebDriverWait(web_driver, 10)
     request.cls.driver = web_driver
+    request.cls.wait = web_driver_wait
     yield
     web_driver.close()
