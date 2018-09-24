@@ -1,5 +1,4 @@
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
 
@@ -27,4 +26,6 @@ class JiraLoginPage:
         self.driver.find_element(*self.PASSWORD_INPUT).send_keys(password)
         self.driver.find_element(*self.LOGIN_BUTTON).submit()
 
+    def is_username_error_displayed(self):
+        return self.wait.until(EC.presence_of_element_located((By.ID, "usernameerror"))).is_displayed()
 
