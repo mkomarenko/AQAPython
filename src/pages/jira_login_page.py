@@ -1,16 +1,14 @@
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 
+from src.pages.base_page import BasePage
 
-class JiraLoginPage:
+
+class JiraLoginPage(BasePage):
     URL = "http://jira.hillel.it:8080"
     LOGIN_INPUT = (By.ID, "login-form-username")
     PASSWORD_INPUT = (By.ID, "login-form-password")
     LOGIN_BUTTON = (By.ID, "login")
-
-    def __init__(self, driver, wait):
-        self.driver = driver
-        self.wait = wait
 
     def open(self):
         self.driver.get(self.URL)
