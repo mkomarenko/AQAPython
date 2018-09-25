@@ -27,3 +27,6 @@ class JiraLoginPage(BasePage):
     def is_username_error_displayed(self):
         return self.wait.until(EC.presence_of_element_located((By.ID, "usernameerror"))).is_displayed()
 
+    def get_username_error_text(self):
+        return str(self.wait.until(EC.presence_of_element_located(
+            (By.XPATH, "//div[contains(@class, 'aui-message')]/p"))).text)

@@ -2,7 +2,7 @@ import pytest
 from selenium.webdriver.support.wait import WebDriverWait
 
 
-@pytest.fixture(scope="class")
+@pytest.fixture(scope="module")
 def driver_init(request):
     from selenium import webdriver
     from webdriver_manager.chrome import ChromeDriverManager
