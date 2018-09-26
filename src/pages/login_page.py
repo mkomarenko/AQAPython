@@ -18,11 +18,22 @@ class JiraLoginPage(BasePage):
         return "System Dashboard - Hillel IT School JIRA" in self.driver.title
 
     def login(self, username, password):
-        self.driver.find_element(*self.LOGIN_INPUT).clear()
-        self.driver.find_element(*self.LOGIN_INPUT).send_keys(username)
-        self.driver.find_element(*self.PASSWORD_INPUT).clear()
-        self.driver.find_element(*self.PASSWORD_INPUT).send_keys(password)
-        self.driver.find_element(*self.LOGIN_BUTTON).submit()
+        self.type_username(username)
+        self.type_password(password)
+        self.submit_login()
+
+    def type_username(self, username):
+        login_input = self.wait.until(EC.visibility_of_element_located(self.LOGIN_INPUT))
+        login_input.clear()
+        login_input.send_keys(username)
+
+    def type_password(self, password):
+        password_input = self.wait.until(EC.visibility_of_element_located(self.PASSWORD_INPUT))
+        password_input.clear()
+        password_input.send_keys(password)
+
+    def submit_login(self):
+        self.wait.until(EC.element_to_be_clickable(self.LOGIN_BUTTON)).click()
 
     def is_username_error_displayed(self):
         return self.wait.until(EC.presence_of_element_located((By.ID, "usernameerror"))).is_displayed()

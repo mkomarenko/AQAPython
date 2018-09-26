@@ -14,13 +14,11 @@ class JiraMainPage(BasePage):
         return self
 
     def at_page(self):
-        return self.wait.until(EC.presence_of_element_located((By.ID, "create_link"))).is_displayed()
+        return self.wait.until(EC.presence_of_element_located(self.CREATE_BUTTON)).is_displayed()
 
-    def is_issue_link_displayed(self, summary):
-        return self.wait.until(EC.presence_of_element_located(
-            (By.XPATH, "//a[contains(text(), '" + summary + "') and contains(@class, 'issue-link')]"))).is_displayed()
+    def is_issue_link_displayed(self):
+        return self.wait.until(EC.presence_of_element_located(self.ISSUE_LINK)).is_displayed()
 
     def open_create_issue_page(self):
-        self.wait.until(EC.presence_of_element_located((By.ID, "create_link")))
-        self.driver.find_element(*self.CREATE_BUTTON).click()
+        self.wait.until(EC.element_to_be_clickable(self.CREATE_BUTTON)).click()
 
