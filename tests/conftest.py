@@ -1,6 +1,6 @@
 import pytest
 from selenium.webdriver.support.wait import WebDriverWait
-
+from globals.jira_globals import *
 
 @pytest.fixture(scope="module")
 def driver_init(request):
@@ -12,3 +12,15 @@ def driver_init(request):
     request.cls.wait = web_driver_wait
     yield
     web_driver.close()
+
+
+@pytest.fixture(scope="class")
+def jira_clean_up():
+    from rest.jira_web_service import JiraWebService
+    yield
+    r = JiraWebService.search_issues_by_jql(
+        "project = AQAPYTHON AND reporter = " + login,
+        ["id"])
+    for issue in r.json()['issues']:
+        JiraWebService.delete_issue_by_id(issue.get('id'))
+

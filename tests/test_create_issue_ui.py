@@ -8,6 +8,7 @@ from tests.base_test import BaseTest
 from globals.jira_globals import *
 
 
+@pytest.mark.usefixtures("jira_clean_up")
 class TestCreateIssueUI(BaseTest):
 
     test_data = [
