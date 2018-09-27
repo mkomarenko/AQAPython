@@ -6,7 +6,7 @@ from webdriver_manager.chrome import ChromeDriverManager
 class BaseTest:
     def setup_class(self):
         self.driver = webdriver.Chrome(ChromeDriverManager().install())
-        self.wait = WebDriverWait(self.driver, 10)
+        self.wait = WebDriverWait(self.driver, 15)
 
     def teardown_class(self):
         self.driver.close()
