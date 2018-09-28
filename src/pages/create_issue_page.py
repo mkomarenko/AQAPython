@@ -14,6 +14,7 @@ class JiraCreateIssuePage(BasePage):
     DESCRIPTION_FIELD = (By.ID, "description")
     SUBMIT_BUTTON = (By.ID, "create-issue-submit")
     CANCEL_LINK = (By.CSS_SELECTOR, "a.cancel")
+    ERROR_DIV = (By.CSS_SELECTOR, "div.error")
 
     def at_page(self):
         return self.wait.until(EC.visibility_of_element_located(self.PROJECT_INPUT)).is_displayed()
@@ -38,8 +39,15 @@ class JiraCreateIssuePage(BasePage):
     def submit_issue(self):
         self.wait.until(EC.element_to_be_clickable(self.SUBMIT_BUTTON)).click()
 
+    def cancel_issue(self):
+        self.wait.until(EC.element_to_be_clickable(self.CANCEL_LINK)).click()
+        self.driver.switch_to.alert.accept()
+
     def create_jira_issue(self, project_name, issue_type, summary):
         self.select_project(project_name)
         self.select_issue_type(issue_type)
         self.type_summary(summary)
         self.submit_issue()
+
+    def error_text(self):
+        return self.wait.until(EC.visibility_of_element_located(self.ERROR_DIV)).text
