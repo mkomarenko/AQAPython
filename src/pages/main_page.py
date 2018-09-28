@@ -1,5 +1,3 @@
-import time
-
 from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
@@ -24,11 +22,11 @@ class JiraMainPage(BasePage):
         return self
 
     def at_page(self):
-        return self.wait.until(EC.element_to_be_clickable(self.CREATE_BUTTON))
+        return self.wait.until(EC.visibility_of_element_located(self.CREATE_BUTTON))
 
     def open_create_issue_page(self):
         self.wait.until(self.is_issue_link_closed)
-        self.driver.find_element(*self.CREATE_BUTTON).click()
+        self.wait.until(EC.element_to_be_clickable(self.CREATE_BUTTON)).click()
 
     def issue_link_text(self):
         return self.wait.until(EC.visibility_of_element_located(self.ISSUE_LINK)).text

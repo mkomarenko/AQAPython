@@ -15,11 +15,11 @@ def driver_init(request):
 
 
 @pytest.fixture(scope="class")
-def jira_clean_up():
+def jira_cleanup():
     from rest.jira_web_service import JiraWebService
     yield
     r = JiraWebService.search_issues_by_jql(
-        "project = AQAPYTHON AND reporter = " + login,
+        "project = " + project + " AND reporter = " + login,
         ["id"])
     for issue in r.json()['issues']:
         JiraWebService.delete_issue_by_id(issue.get('id'))

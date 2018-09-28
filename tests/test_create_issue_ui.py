@@ -8,8 +8,10 @@ from tests.base_test import BaseTest
 from globals.jira_globals import *
 
 
-@pytest.mark.usefixtures("jira_clean_up")
+@pytest.mark.usefixtures("jira_cleanup")
 class TestCreateIssueUI(BaseTest):
+
+    project_name = "AQAPython (AQAPYTHON)"
 
     test_data = [
         ("Maxim test issue 1", "Bug"),
@@ -33,7 +35,7 @@ class TestCreateIssueUI(BaseTest):
     def test_create_issue(self, summary, issue_type):
         self.main_page.open_create_issue_page()
         assert self.create_issue_page.at_page()
-        self.create_issue_page.create_jira_issue(project, issue_type, summary)
+        self.create_issue_page.create_jira_issue(self.project_name, issue_type, summary)
         assert summary in self.main_page.issue_link_text()
         assert self.main_page.at_page()
 
