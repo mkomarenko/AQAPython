@@ -5,9 +5,9 @@ from selenium.webdriver.support import expected_conditions as EC
 from src.pages.base_page import BasePage
 
 
-class JiraCreateIssuePage(BasePage):
+class CreateIssuePage(BasePage):
     PROJECT_INPUT = (By.ID, "project-field")
-    PROJECT_DROPDOWN = (By.ID, "project")
+    PROJECT_DROPDOWN = (By.CSS_SELECTOR, "span.icon.aui-ss-icon.noloading.drop-menu")
     ISSUE_TYPE_INPUT = (By.ID, "issuetype-field")
     ISSUE_TYPE_DROPDOWN = (By.ID, "issuetype")
     SUMMARY_INPUT = (By.ID, "summary")
@@ -20,26 +20,27 @@ class JiraCreateIssuePage(BasePage):
         return self.wait.until(EC.visibility_of_element_located(self.PROJECT_INPUT)).is_displayed()
 
     def select_project(self, project_name):
-        input = self.wait.until(EC.element_to_be_clickable(self.PROJECT_INPUT))
-        input.clear()
-        input.send_keys(project_name)
-        input.send_keys(Keys.RETURN)
+        project_elem = self.wait.until(EC.element_to_be_clickable(self.PROJECT_INPUT))
+        project_elem.clear()
+        project_elem.send_keys(project_name)
+        project_elem.send_keys(Keys.RETURN)
 
     def select_issue_type(self, issue_type):
-        input = self.wait.until(EC.element_to_be_clickable(self.ISSUE_TYPE_INPUT))
-        input.clear()
-        input.send_keys(issue_type)
-        input.send_keys(Keys.RETURN)
+        issue_elem = self.wait.until(EC.element_to_be_clickable(self.ISSUE_TYPE_INPUT))
+        issue_elem.clear()
+        issue_elem.send_keys(issue_type)
+        issue_elem.send_keys(Keys.RETURN)
 
     def type_summary(self, summary):
-        summary_input = self.wait.until(EC.element_to_be_clickable(self.SUMMARY_INPUT))
-        summary_input.clear()
-        summary_input.send_keys(summary)
+        summary_elem = self.wait.until(EC.element_to_be_clickable(self.SUMMARY_INPUT))
+        summary_elem.clear()
+        summary_elem.send_keys(summary)
 
     def submit_issue(self):
         self.wait.until(EC.element_to_be_clickable(self.SUBMIT_BUTTON)).click()
 
     def cancel_issue(self):
+        self.type_summary('')
         self.wait.until(EC.element_to_be_clickable(self.CANCEL_LINK)).click()
         self.driver.switch_to.alert.accept()
 

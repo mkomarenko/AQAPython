@@ -2,6 +2,7 @@ import pytest
 from selenium.webdriver.support.wait import WebDriverWait
 from globals.jira_globals import *
 
+
 @pytest.fixture(scope="module")
 def driver_init(request):
     from selenium import webdriver
@@ -19,7 +20,7 @@ def jira_cleanup():
     from rest.jira_web_service import JiraWebService
     yield
     r = JiraWebService.search_issues_by_jql(
-        "project = " + project + " AND reporter = " + login,
+        "reporter = " + login,
         ["id"])
     for issue in r.json()['issues']:
         JiraWebService.delete_issue_by_id(issue.get('id'))

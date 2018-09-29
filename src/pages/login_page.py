@@ -4,7 +4,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from src.pages.base_page import BasePage
 
 
-class JiraLoginPage(BasePage):
+class LoginPage(BasePage):
     URL = "http://jira.hillel.it:8080"
     LOGIN_INPUT = (By.ID, "login-form-username")
     PASSWORD_INPUT = (By.ID, "login-form-password")
@@ -39,5 +39,5 @@ class JiraLoginPage(BasePage):
         return self.wait.until(EC.presence_of_element_located((By.ID, "usernameerror"))).is_displayed()
 
     def get_username_error_text(self):
-        return str(self.wait.until(EC.presence_of_element_located(
-            (By.XPATH, "//div[contains(@class, 'aui-message')]/p"))).text)
+        return self.wait.until(EC.presence_of_element_located(
+            (By.XPATH, "//div[contains(@class, 'aui-message')]/p"))).text
