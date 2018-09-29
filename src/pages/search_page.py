@@ -31,7 +31,6 @@ class SearchPage(BasePage):
     def submit_query(self):
         search_button_elem = self.wait.until(EC.element_to_be_clickable(self.SEARCH_BUTTON))
         search_button_elem.click()
-        time.sleep(2)
 
     def search_by_text(self, text):
         self.type_query(text)
