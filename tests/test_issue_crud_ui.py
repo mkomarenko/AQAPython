@@ -2,6 +2,8 @@ import pytest
 
 from globals.jira_globals import *
 from src.pages.create_issue_page import CreateIssuePage
+from src.pages.edit_issue_page import EditIssuePage
+from src.pages.issue_summary_page import IssueSummaryPage
 from src.pages.login_page import LoginPage
 from src.pages.main_page import MainPage
 from src.pages.search_page import SearchPage
@@ -26,6 +28,8 @@ class TestCreateIssueUI(BaseTest):
         self.main_page = MainPage(self.driver, self.wait)
         self.create_issue_page = CreateIssuePage(self.driver, self.wait)
         self.search_page = SearchPage(self.driver, self.wait)
+        self.issue_summary_page = IssueSummaryPage(self.driver, self.wait)
+        self.edit_issue_page = EditIssuePage(self.driver, self.wait)
 
     def test_login(self):
         self.login_page.open()
@@ -71,6 +75,16 @@ class TestCreateIssueUI(BaseTest):
         assert self.search_page.at_page()
         self.search_page.search_by_text("Maxim test issue 1")
         assert "1" == self.search_page.total_number_of_issues()
+
+    def test_update_issue(self):
+        self.search_page.open_issue_with_summary("Maxim test issue 1")
+        assert self.issue_summary_page.at_page()
+        self.issue_summary_page.open_edit_issue()
+        assert self.edit_issue_page.at_page()
+        new_summary = "Updated: " + self.edit_issue_page.get_summary()
+        self.edit_issue_page.update_summary(new_summary)
+        assert new_summary in self.issue_summary_page.get_summary_val()
+
 
 
 
