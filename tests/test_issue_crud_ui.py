@@ -77,13 +77,20 @@ class TestCreateIssueUI(BaseTest):
         assert "1" == self.search_page.total_number_of_issues()
 
     def test_update_issue(self):
+        new_prio = "Medium"
+        new_assignee = "Maksym_Komarenko"
         self.search_page.open_issue_with_summary("Maxim test issue 1")
         assert self.issue_summary_page.at_page()
         self.issue_summary_page.open_edit_issue()
         assert self.edit_issue_page.at_page()
         new_summary = "Updated: " + self.edit_issue_page.get_summary()
-        self.edit_issue_page.update_summary(new_summary)
+        self.edit_issue_page.type_summary(new_summary)
+        self.edit_issue_page.type_priority(new_prio)
+        self.edit_issue_page.type_assignee(new_assignee)
+        self.edit_issue_page.submit_update()
         assert new_summary in self.issue_summary_page.get_summary_val()
+        assert new_prio in self.issue_summary_page.get_priority_val()
+
 
 
 
