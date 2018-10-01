@@ -1,18 +1,62 @@
 import pytest
-from selenium.webdriver.support.wait import WebDriverWait
+
 from globals.jira_globals import *
 
 
-@pytest.fixture(scope="module")
-def driver_init(request):
+@pytest.fixture(scope="session")
+def get_driver(request):
     from selenium import webdriver
     from webdriver_manager.chrome import ChromeDriverManager
     web_driver = webdriver.Chrome(ChromeDriverManager().install())
-    web_driver_wait = WebDriverWait(web_driver, 10)
-    request.cls.driver = web_driver
-    request.cls.wait = web_driver_wait
+
+    def close_driver():
+        web_driver.quit()
+
+    request.addfinalizer(close_driver)
+    return web_driver
+
+
+@pytest.fixture(scope="class")
+def get_login_page(get_driver):
+    from src.pages.login_page import LoginPage
+    return LoginPage(get_driver)
+
+
+@pytest.fixture(scope="class")
+def get_main_page(get_driver):
+    from src.pages.main_page import MainPage
+    return MainPage(get_driver)
+
+
+@pytest.fixture(scope="class")
+def get_new_issue_page(get_driver):
+    from src.pages.new_issue_page import NewIssuePage
+    return NewIssuePage(get_driver)
+
+
+@pytest.fixture(scope="class")
+def get_search_page(get_driver):
+    from src.pages.search_page import SearchPage
+    return SearchPage(get_driver)
+
+
+@pytest.fixture(scope="class")
+def get_edit_issue_page(get_driver):
+    from src.pages.edit_issue_page import EditIssuePage
+    return EditIssuePage(get_driver)
+
+
+@pytest.fixture(scope="class")
+def get_issue_summary_page(get_driver):
+    from src.pages.issue_summary_page import IssueSummaryPage
+    return IssueSummaryPage(get_driver)
+
+
+@pytest.fixture(scope="class")
+def log_out(get_main_page):
     yield
-    web_driver.close()
+    main_page = get_main_page
+    main_page.logout()
 
 
 @pytest.fixture(scope="class")

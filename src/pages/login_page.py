@@ -1,11 +1,12 @@
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 
+from globals.jira_globals import base_url
 from src.pages.base_page import BasePage
 
 
 class LoginPage(BasePage):
-    URL = "http://jira.hillel.it:8080"
+    URL = base_url
     LOGIN_INPUT = (By.ID, "login-form-username")
     PASSWORD_INPUT = (By.ID, "login-form-password")
     LOGIN_BUTTON = (By.ID, "login")

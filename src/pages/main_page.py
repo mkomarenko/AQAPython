@@ -10,6 +10,8 @@ class MainPage(BasePage):
     CREATE_BUTTON = (By.ID, "create_link")
     ISSUE_LINK = (By.CSS_SELECTOR, "a.issue-created-key.issue-link")
     FIND_LINK = (By.ID, "find_link")
+    USER_OPTIONS = (By.ID, "user-options")
+    LOGOUT_LINK = (By.ID, "log_out")
 
     def open(self):
         self.driver.get(self.URL)
@@ -25,6 +27,10 @@ class MainPage(BasePage):
 
     def issue_link_text(self):
         return self.wait.until(EC.visibility_of_element_located(self.ISSUE_LINK)).text
+
+    def logout(self):
+        self.wait.until(EC.element_to_be_clickable(self.USER_OPTIONS)).click()
+        self.wait.until(EC.element_to_be_clickable(self.LOGOUT_LINK)).click()
 
 
 

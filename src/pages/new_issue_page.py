@@ -7,7 +7,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from src.pages.base_page import BasePage
 
 
-class CreateIssuePage(BasePage):
+class NewIssuePage(BasePage):
     PROJECT_INPUT = (By.ID, "project-field")
     PROJECT_DROPDOWN = (By.CSS_SELECTOR, "span.icon.aui-ss-icon.noloading.drop-menu")
     ISSUE_TYPE_INPUT = (By.ID, "issuetype-field")
