@@ -38,6 +38,7 @@ class TestCreateIssueUI(BaseTest):
 
     @pytest.mark.parametrize("summary, issue_type", test_data)
     def test_create_issue(self, summary, issue_type):
+        self.driver.get_screenshot_as_file("screenshot/" + summary + ".png")
         self.main_page.open_create_issue_page()
         assert self.create_issue_page.at_page()
         self.create_issue_page.create_issue(self.project_name, issue_type, summary)
@@ -46,6 +47,7 @@ class TestCreateIssueUI(BaseTest):
 
     def test_empty_summary(self):
         summary = ""
+        self.driver.get_screenshot_as_file("screenshot/empty_summary.png")
         self.main_page.open_create_issue_page()
         assert self.create_issue_page.at_page()
         self.create_issue_page.type_summary(summary)
@@ -56,6 +58,7 @@ class TestCreateIssueUI(BaseTest):
 
     def test_summary_longer_than_supported(self):
         summary = "Maxim " * 50
+        self.driver.get_screenshot_as_file("screenshot/long_summary.png")
         self.main_page.open_create_issue_page()
         assert self.create_issue_page.at_page()
         self.create_issue_page.type_summary(summary)
@@ -67,18 +70,21 @@ class TestCreateIssueUI(BaseTest):
     def test_search_five_issues(self):
         self.search_page.open()
         assert self.search_page.at_page()
+        self.driver.get_screenshot_as_file("screenshot/search_5_issues.png")
         self.search_page.search_by_text("Maxim test issue")
         assert "5" == self.search_page.total_number_of_issues()
 
     def test_search_one_issues(self):
         self.search_page.open()
         assert self.search_page.at_page()
+        self.driver.get_screenshot_as_file("screenshot/search_1_issue.png")
         self.search_page.search_by_text("Maxim test issue 1")
         assert "1" == self.search_page.total_number_of_issues()
 
     def test_update_issue(self):
         new_prio = "Medium"
         new_assignee = "Maksym_Komarenko"
+        self.driver.get_screenshot_as_file("screenshot/open_issue_with_suumary.png")
         self.search_page.open_issue_with_summary("Maxim test issue 1")
         assert self.issue_summary_page.at_page()
         self.issue_summary_page.open_edit_issue()
