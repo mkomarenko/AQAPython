@@ -3,6 +3,7 @@ import pytest
 from globals.jira_globals import *
 
 
+@pytest.mark.incremental
 @pytest.mark.usefixtures("jira_cleanup", "log_out")
 class TestCRUDIssueUI:
 

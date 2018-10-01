@@ -1,6 +1,9 @@
+import pytest
+
 from globals.jira_globals import *
 
 
+@pytest.mark.incremental
 class TestJiraLoginUI:
 
     def test_login_incorrect_username(self, get_login_page):
