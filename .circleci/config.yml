@@ -2,7 +2,7 @@ version: 2
 jobs:
   build:
     docker:
-      - image: circleci/python:3.6.1
+      - image: circleci/python:3.7.0-browsers
       
     working_directory: ~/aqapython
     steps:
@@ -33,4 +33,6 @@ jobs:
       - store_artifacts:
           path: test-reports
           destination: test-reports
-          
+
+      - store_artifacts:
+          path: screenshot
