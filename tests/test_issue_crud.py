@@ -1,8 +1,9 @@
 import pytest
+import allure
 from rest.jira_web_service import *
 
 
-class TestJiraIssueCRUD:
+class TestIssueCRUD:
     created_issues = []
 
     create_test_data = [
@@ -35,33 +36,43 @@ class TestJiraIssueCRUD:
     @pytest.mark.parametrize("summary, description, issue_type, priority, assignee, expected_sc, expected_text",
                              create_test_data)
     def test_issue_create(self, summary, description, issue_type, priority, assignee, expected_sc, expected_text):
-        r = JiraWebService.create_new_issue(summary, description, issue_type, priority, assignee)
-        print("STATUS CODE: " + str(r.status_code))
-        print("data: " + str(r.json()))
-        if r.status_code == 201:
-            self.created_issues.append(r.json()['id'])
-        assert expected_text in str(r.json())
-        assert r.status_code == expected_sc
+        with allure.step("Creating a new issue"):
+            r = JiraWebService.create_new_issue(summary, description, issue_type, priority, assignee)
+            print("STATUS CODE: " + str(r.status_code))
+            print("data: " + str(r.json()))
+            if r.status_code == 201:
+                self.created_issues.append(r.json()['id'])
+            assert expected_text in str(r.json())
+            assert r.status_code == expected_sc
 
     @pytest.mark.parametrize("jql, fields, expected_sc, expected_count", search_test_data)
     def test_search_issue(self, jql, fields, expected_sc, expected_count):
-        r = JiraWebService.search_issues_by_jql(jql, fields)
-        print("STATUS CODE: " + str(r.status_code))
-        print("data: " + str(r.json()))
-        assert r.json()['total'] >= expected_count
-        assert r.status_code == expected_sc
+        with allure.step("Searching issues by jql"):
+            r = JiraWebService.search_issues_by_jql(jql, fields)
+            print("STATUS CODE: " + str(r.status_code))
+            print("data: " + str(r.json()))
+            assert r.json()['total'] >= expected_count
+            assert r.status_code == expected_sc
 
     def test_issue_update(self):
-        r = JiraWebService.update_issue_by_id(self.created_issues[0], "Updated: Maxim test issue 1",
-                                              "Medium", "Maksym_Komarenko")
-        print("STATUS CODE: " + str(r.status_code))
-        assert r.status_code == 204
-        # print(self.created_issues)
+        with allure.step("Updating issue"):
+            r = JiraWebService.update_issue_by_id(self.created_issues[0], "Updated: Maxim test issue 1",
+                                                  "Medium", "Maksym_Komarenko")
+            print("STATUS CODE: " + str(r.status_code))
+            # print("data: " + str(r.json()))
+            assert r.status_code == 204
 
     def test_issues_delete(self):
-        r = JiraWebService.search_issues_by_jql(
-            "project = AQAPYTHON AND reporter = Maksym_Komarenko",
-            ["id"])
-        for issue in r.json()['issues']:
-            r = JiraWebService.delete_issue_by_id(issue.get('id'))
-            assert r.status_code == 204
+        with allure.step("Getting IDs of the issues to be deleted"):
+            r = JiraWebService.search_issues_by_jql(
+                "project = " + project + " AND reporter = " + login,
+                ["id"])
+            print("STATUS CODE: " + str(r.status_code))
+            print("data: " + str(r.json()))
+            assert r.status_code == 200
+
+        with allure.step("Deleting issues created in the previous tests"):
+            for issue in r.json()['issues']:
+                r = JiraWebService.delete_issue_by_id(issue.get('id'))
+                print("STATUS CODE: " + str(r.status_code))
+                assert r.status_code == 204

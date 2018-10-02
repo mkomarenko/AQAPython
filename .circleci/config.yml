@@ -35,4 +35,4 @@ jobs:
           destination: test-reports
 
       - store_artifacts:
-          path: screenshot
+          path: screenshots
