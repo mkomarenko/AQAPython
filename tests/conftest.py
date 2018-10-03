@@ -4,16 +4,12 @@ from globals.jira_globals import *
 
 
 @pytest.fixture(scope="session")
-def get_driver(request):
+def get_driver():
     from selenium import webdriver
     from webdriver_manager.chrome import ChromeDriverManager
     web_driver = webdriver.Chrome(ChromeDriverManager().install())
-
-    def close_driver():
-        web_driver.quit()
-
-    request.addfinalizer(close_driver)
-    return web_driver
+    yield web_driver
+    web_driver.close()
 
 
 @pytest.fixture(scope="class")
@@ -53,9 +49,13 @@ def get_issue_summary_page(get_driver):
 
 
 @pytest.fixture(scope="class")
-def log_out(get_main_page):
-    yield
+def login_logout(get_login_page, get_main_page):
+    login_page = get_login_page
+    login_page.open()
+    login_page.login(login, password)
     main_page = get_main_page
+    main_page.wait_until_page_is_loaded(15)
+    yield
     main_page.logout()
 
 

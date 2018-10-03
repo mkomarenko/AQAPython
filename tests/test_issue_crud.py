@@ -3,8 +3,9 @@ import allure
 from rest.jira_web_service import *
 
 
+@pytest.mark.api_test
 class TestIssueCRUD:
-    created_issues = []
+    created_issue_ids = []
 
     create_test_data = [
         ("Maxim test issue 1", "Maxim test issue", "Bug", "Low", "", 201,
@@ -33,46 +34,48 @@ class TestIssueCRUD:
          ["id", "key", "summary"], 200, 0),
     ]
 
+    @allure.title("Create issue API")
     @pytest.mark.parametrize("summary, description, issue_type, priority, assignee, expected_sc, expected_text",
                              create_test_data)
     def test_issue_create(self, summary, description, issue_type, priority, assignee, expected_sc, expected_text):
-        with allure.step("Creating a new issue"):
+        with allure.step("Sending API request"):
             r = JiraWebService.create_new_issue(summary, description, issue_type, priority, assignee)
-            print("STATUS CODE: " + str(r.status_code))
-            print("data: " + str(r.json()))
-            if r.status_code == 201:
-                self.created_issues.append(r.json()['id'])
-            assert expected_text in str(r.json())
+            print("\nSTATUS CODE: " + str(r.status_code))
+            print("\ndata: " + str(r.json()))
+        with allure.step("Check response status code"):
             assert r.status_code == expected_sc
+        if r.status_code == 201:
+            with allure.step("Save created issue id to the list"):
+                self.created_issue_ids.append(r.json()['id'])
+        with allure.step("Check response data content"):
+            assert expected_text in str(r.json())
 
+    @allure.title("Search issues API")
     @pytest.mark.parametrize("jql, fields, expected_sc, expected_count", search_test_data)
     def test_search_issue(self, jql, fields, expected_sc, expected_count):
-        with allure.step("Searching issues by jql"):
+        with allure.step("Sending API request"):
             r = JiraWebService.search_issues_by_jql(jql, fields)
-            print("STATUS CODE: " + str(r.status_code))
-            print("data: " + str(r.json()))
-            assert r.json()['total'] >= expected_count
+            print("\nSTATUS CODE: " + str(r.status_code))
+            print("\ndata: " + str(r.json()))
+        with allure.step("Check response status code"):
             assert r.status_code == expected_sc
+        with allure.step("Check found issues count"):
+            assert r.json()['total'] == expected_count
 
+    @allure.title("Update issue API")
     def test_issue_update(self):
-        with allure.step("Updating issue"):
+        with allure.step("Sending API request"):
             r = JiraWebService.update_issue_by_id(self.created_issues[0], "Updated: Maxim test issue 1",
                                                   "Medium", "Maksym_Komarenko")
-            print("STATUS CODE: " + str(r.status_code))
-            # print("data: " + str(r.json()))
+            print("\nSTATUS CODE: " + str(r.status_code))
+        with allure.step("Check response status code"):
             assert r.status_code == 204
 
+    @allure.title("Delete issue API")
     def test_issues_delete(self):
-        with allure.step("Getting IDs of the issues to be deleted"):
-            r = JiraWebService.search_issues_by_jql(
-                "project = " + project + " AND reporter = " + login,
-                ["id"])
-            print("STATUS CODE: " + str(r.status_code))
-            print("data: " + str(r.json()))
-            assert r.status_code == 200
-
-        with allure.step("Deleting issues created in the previous tests"):
-            for issue in r.json()['issues']:
-                r = JiraWebService.delete_issue_by_id(issue.get('id'))
-                print("STATUS CODE: " + str(r.status_code))
+        for issue_id in self.created_issue_ids:
+            with allure.step("Sending API request"):
+                r = JiraWebService.delete_issue_by_id(issue_id)
+                print("\nSTATUS CODE: " + str(r.status_code))
+            with allure.step("Check response status code"):
                 assert r.status_code == 204

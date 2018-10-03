@@ -1,3 +1,5 @@
+allure-pytest==2.5.2
+allure-python-commons==2.5.2
 apipkg==1.5
 atomicwrites==1.2.1
 attrs==18.1.0
@@ -15,7 +17,6 @@ namedlist==1.7
 pluggy==0.7.1
 py==1.6.0
 pytest==3.7.4
-pytest-allure-adaptor==1.7.10
 pytest-forked==0.2
 pytest-rerunfailures==4.1
 pytest-xdist==1.23.0
