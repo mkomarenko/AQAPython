@@ -31,7 +31,7 @@ jobs:
             pytest --alluredir=target/test-reports -v -l
 
       - store_artifacts:
-          path: test-reports
+          path: target/test-reports
           destination: test-reports
 
       - store_artifacts:
