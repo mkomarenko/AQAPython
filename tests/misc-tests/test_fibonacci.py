@@ -1,7 +1,7 @@
 import allure
 import pytest
 
-from .fibonacci import fib
+from src.fibonacci import fib
 
 
 @pytest.mark.misc_test

@@ -45,7 +45,7 @@ class TestIssueCRUD:
         with allure.step("Check response status code"):
             assert r.status_code == expected_sc
         if r.status_code == 201:
-            with allure.step("Save created issue id to the list"):
+            with allure.step("Save id to created issues list"):
                 self.created_issue_ids.append(r.json()['id'])
         with allure.step("Check response data content"):
             assert expected_text in str(r.json())
@@ -65,7 +65,7 @@ class TestIssueCRUD:
     @allure.title("Update issue API")
     def test_issue_update(self):
         with allure.step("Sending API request"):
-            r = JiraWebService.update_issue_by_id(self.created_issues[0], "Updated: Maxim test issue 1",
+            r = JiraWebService.update_issue_by_id(self.created_issue_ids[0], "Updated: Maxim test issue 1",
                                                   "Medium", "Maksym_Komarenko")
             print("\nSTATUS CODE: " + str(r.status_code))
         with allure.step("Check response status code"):

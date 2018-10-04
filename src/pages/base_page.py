@@ -20,4 +20,5 @@ class BasePage:
         while not self.at_page() and wait_time < timeoutsec:
             time.sleep(check_interval)
             wait_time += check_interval
+        return self
 

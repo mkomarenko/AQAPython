@@ -28,7 +28,7 @@ jobs:
           name: run tests
           command: |
             . venv/bin/activate
-            pytest -n 4 --dist=loadscope --reruns 2 -v -l
+            pytest --alluredir=target/test-reports -v -l
 
       - store_artifacts:
           path: test-reports

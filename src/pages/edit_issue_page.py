@@ -38,6 +38,8 @@ class EditIssuePage(BasePage):
         self.wait.until(EC.element_to_be_clickable(self.UPDATE_BUTTON)).click()
         time.sleep(3)
 
-    def update_summary(self, summary):
+    def update_issue(self, summary, priority, assignee):
         self.type_summary(summary)
+        self.type_priority(priority)
+        self.type_assignee(assignee)
         self.submit_update()
