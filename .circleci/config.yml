@@ -18,10 +18,13 @@ jobs:
             python3 -m venv venv
             . venv/bin/activate
             pip install -r requirements.txt
-            sudo apt-add-repository ppa:qameta/allure
-            sudo apt-get update
-            sudo apt-get install allure
 
+      - run:
+          name: install allure
+          command: |
+          curl -o allure-2.7.0.zip -Ls https://bintray.com/qameta/generic/download_file?file_path=io%2Fqameta%2Fallure%2Fallure%2F2.7.0%2Fallure-2.7.0.zip
+          unzip allure-2.7.0.zip
+          chmod -R 777 ./allure-2.7.0/bin/
 
       - save_cache:
           paths:
@@ -34,9 +37,15 @@ jobs:
             . venv/bin/activate
             pytest --alluredir=/tmp/test-reports -v -l
 
+      - run:
+          name: generate report
+          command: |
+          ./allure-2.7.0/bin/allure generate -c /tmp/test-reports -o /tmp/my_allure_report
+          when: always
+
       - store_artifacts:
-          path: /tmp/test-reports
-          destination: test-reports
+          path: /tmp/my_allure_report
+          destination: my_allure_report
 
       - store_artifacts:
           path: target/screenshots
