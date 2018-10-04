@@ -10,7 +10,7 @@ from globals.jira_globals import *
 class TestLoginUI:
 
     @allure.title("Login to Jira UI with wrong username")
-    def test_login_incorrect_username(self, get_login_page):
+    def test_login_incorrect_username(self, get_login_page, get_driver):
         with allure.step("Open login page"):
             get_login_page.open()
         with allure.step("Check that login page opened"):
@@ -20,6 +20,9 @@ class TestLoginUI:
         with allure.step("Check that correct error is displayed"):
             assert get_login_page.is_username_error_displayed()
             assert "Sorry, your username and password are incorrect" in get_login_page.get_username_error_text()
+        allure.attach(get_driver.get_screenshot_as_png(),
+                      name="test_login_incorrect_username",
+                      attachment_type=allure.attachment_type.PNG)
 
     @allure.title("Login to Jira UI with wrong password")
     def test_login_incorrect_password(self, get_login_page):
