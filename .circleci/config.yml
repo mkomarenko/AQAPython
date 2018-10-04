@@ -18,6 +18,10 @@ jobs:
             python3 -m venv venv
             . venv/bin/activate
             pip install -r requirements.txt
+            sudo apt-add-repository ppa:qameta/allure
+            sudo apt-get update
+            sudo apt-get install allure
+
 
       - save_cache:
           paths:
@@ -28,10 +32,10 @@ jobs:
           name: run tests
           command: |
             . venv/bin/activate
-            pytest --alluredir=target/test-reports -v -l
+            pytest --alluredir=/tmp/test-reports -v -l
 
       - store_artifacts:
-          path: target/test-reports
+          path: /tmp/test-reports
           destination: test-reports
 
       - store_artifacts:
