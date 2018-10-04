@@ -17,7 +17,7 @@ jobs:
           command: |
             python3 -m venv venv
             . venv/bin/activate
-            pip install -r requirements.txt
+            pip install -r requirements.txt --no-cache-dir
 
       - save_cache:
           paths:
@@ -35,4 +35,4 @@ jobs:
           destination: test-reports
 
       - store_artifacts:
-          path: screenshots
+          path: target/screenshots
