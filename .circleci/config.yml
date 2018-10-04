@@ -40,7 +40,7 @@ jobs:
       - run:
           name: generate report
           command: |
-          ./allure-2.7.0/bin/allure generate -c /tmp/test-reports -o /tmp/my_allure_report
+            ./allure-2.7.0/bin/allure generate -c /tmp/test-reports -o /tmp/my_allure_report
           when: always
 
       - store_artifacts:
