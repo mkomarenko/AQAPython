@@ -1,3 +1,5 @@
+import time
+
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 
@@ -42,3 +44,4 @@ class LoginPage(BasePage):
     def get_username_error_text(self):
         return self.wait.until(EC.presence_of_element_located(
             (By.XPATH, "//div[contains(@class, 'aui-message')]/p"))).text
+
