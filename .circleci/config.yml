@@ -46,6 +46,3 @@ jobs:
       - store_artifacts:
           path: /tmp/my_allure_report
           destination: my_allure_report
-
-      - store_artifacts:
-          path: target/screenshots
