@@ -4,7 +4,6 @@ import pytest
 from globals.jira_globals import *
 
 
-@allure.story("UI Tests")
 @pytest.mark.ui_test
 @pytest.mark.incremental
 class TestLoginUI:
