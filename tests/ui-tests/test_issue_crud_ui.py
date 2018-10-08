@@ -4,17 +4,17 @@ import pytest
 
 @pytest.mark.ui_test
 @pytest.mark.incremental
-@pytest.mark.usefixtures("login_logout", "jira_cleanup")
+@pytest.mark.usefixtures("login_logout", "jira_test_data")
 class TestCRUDIssueUI:
 
     project_name = "AQAPython (AQAPYTHON)"
 
     test_data = [
-        ("Maxim test issue 1", "Bug"),
-        ("Maxim test issue 2", "User Story"),
-        ("Maxim test issue 3", "Test"),
-        ("Maxim test issue 4", "Task"),
-        ("Maxim test issue 5", "Story")
+        ("Create new issue test 1", "Bug"),
+        ("Create new issue test 2", "User Story"),
+        ("Create new issue test 3", "Test"),
+        ("Create new issue test 4", "Task"),
+        ("Create new issue test 5", "Story")
     ]
 
     @allure.title("Create issue UI")

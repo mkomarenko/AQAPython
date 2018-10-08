@@ -66,7 +66,7 @@ class TestIssueCRUD:
     def test_issue_update(self):
         with allure.step("Sending API request"):
             r = JiraWebService.update_issue_by_id(self.created_issue_ids[0], "Updated: Maxim test issue 1",
-                                                  "Medium", "Maksym_Komarenko")
+                                                  "Maxim Test issue - updated", "Bug", "Medium", "Maksym_Komarenko")
             print("\nSTATUS CODE: " + str(r.status_code))
         with allure.step("Check response status code"):
             assert r.status_code == 204

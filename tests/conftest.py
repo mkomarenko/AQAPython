@@ -72,14 +72,26 @@ def login_logout(get_login_page, get_main_page):
 
 @allure.step("Cleanup Jira from issues reported by test user")
 @pytest.fixture(scope="class")
-def jira_cleanup():
+def jira_test_data():
     from rest.jira_web_service import JiraWebService
+
+    test_data = (("Maxim test issue 1", "Maxim test issue", "Bug", "Low", ""),
+                 ("Maxim test issue 2", "Maxim test issue", "User Story", "High", ""),
+                 ("Maxim test issue 3", "Maxim test issue", "Test", "Medium", ""),
+                 ("Maxim test issue 4", "Maxim test issue", "Task", "Lowest", ""),
+                 ("Maxim test issue 5", "Maxim test issue", "Story", "Highest", ""))
+
+    with allure.step("Create new issues"):
+        for record in test_data:
+            JiraWebService.create_new_issue(*record)
+
     yield
+
     with allure.step("Call search issue method"):
         r = JiraWebService.search_issues_by_jql(
             "reporter = " + login,
             ["id"])
-    with allure.step("Call delete method for each issue"):
+    with allure.step("Delete all created issues"):
         for issue in r.json()['issues']:
             JiraWebService.delete_issue_by_id(issue.get('id'))
 
@@ -96,4 +108,3 @@ def pytest_runtest_setup(item):
         previousfailed = getattr(item.parent, "_previousfailed", None)
         if previousfailed is not None:
             pytest.xfail("previous test failed (%s)" % previousfailed.name)
-

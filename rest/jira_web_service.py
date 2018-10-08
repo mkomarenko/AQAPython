@@ -22,11 +22,12 @@ class JiraWebService:
                              auth=(login, password))
 
     @staticmethod
-    def update_issue_by_id(issue_id, summary, priority, assignee):
+    def update_issue_by_id(issue_id, summary, description, issue_type, priority, assignee):
         url = base_url + '/rest/api/2/issue/' + issue_id
         headers = {'Content-Type': 'application/json'}
         return requests.put(url,
-                            json=JsonFixtures.get_update_issue_json(summary, priority, assignee),
+                            json=JsonFixtures.get_update_issue_json(summary, description, issue_type, priority,
+                                                                    assignee),
                             headers=headers,
                             auth=(login, password))
 
@@ -35,3 +36,9 @@ class JiraWebService:
         url = base_url + '/rest/api/2/issue/' + issue_id
         headers = {'Content-Type': 'application/json'}
         return requests.delete(url, auth=(login, password))
+
+    @staticmethod
+    def login(auth_data):
+        url = base_url + '/rest/auth/1/session'
+        headers = {'Content-Type': 'application/json'}
+        return requests.post(url, json=auth_data, headers=headers)

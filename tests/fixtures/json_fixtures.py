@@ -1,23 +1,12 @@
+from globals.jira_globals import project
+
+
 class JsonFixtures:
     @staticmethod
-    def get_auth_data():
+    def get_auth_data(login, password):
         return {
-            "username": "Maksym_Komarenko",
-            "password": "Mk810426@odsu_"
-        }
-
-    @staticmethod
-    def get_wrong_username():
-        return {
-            "username": "wrong",
-            "password": "Mk810426@odsu_"
-        }
-
-    @staticmethod
-    def get_wrong_password():
-        return {
-            "username": "Maksym_Komarenko",
-            "password": "wrong"
+            "username": login,
+            "password": password
         }
 
     @staticmethod
@@ -26,7 +15,7 @@ class JsonFixtures:
             "fields": {
                 "project":
                     {
-                        "key": "AQAPYTHON"
+                        "key": project
                     },
                 "summary": summary,
                 "description": description,
@@ -43,10 +32,14 @@ class JsonFixtures:
         }
 
     @staticmethod
-    def get_update_issue_json(summary, priority, assignee):
+    def get_update_issue_json(summary, description, issue_type, priority, assignee):
         return {
             "fields": {
                 "summary": summary,
+                "description": description,
+                "issuetype": {
+                    "name": issue_type
+                },
                 "priority": {
                     "name": priority
                 },
