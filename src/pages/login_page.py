@@ -5,6 +5,7 @@ from selenium.webdriver.support import expected_conditions as EC
 
 from globals.jira_globals import base_url
 from src.pages.base_page import BasePage
+from src.pages.main_page import MainPage
 
 
 class LoginPage(BasePage):
@@ -24,6 +25,7 @@ class LoginPage(BasePage):
         self.type_username(username)
         self.type_password(password)
         self.submit_login()
+        return MainPage(self.driver)
 
     def type_username(self, username):
         login_input = self.wait.until(EC.visibility_of_element_located(self.LOGIN_INPUT))
@@ -41,7 +43,7 @@ class LoginPage(BasePage):
     def is_username_error_displayed(self):
         return self.wait.until(EC.presence_of_element_located((By.ID, "usernameerror"))).is_displayed()
 
-    def get_username_error_text(self):
-        return self.wait.until(EC.presence_of_element_located(
+    def username_error_text(self, substring):
+        return substring in self.wait.until(EC.presence_of_element_located(
             (By.XPATH, "//div[contains(@class, 'aui-message')]/p"))).text
 

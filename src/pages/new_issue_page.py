@@ -19,7 +19,7 @@ class NewIssuePage(BasePage):
     ERROR_DIV = (By.CSS_SELECTOR, "div.error")
 
     def at_page(self):
-        return self.wait.until(EC.visibility_of_element_located(self.PROJECT_INPUT)).is_displayed()
+        return self.wait.until(EC.presence_of_element_located(self.PROJECT_INPUT)).is_enabled()
 
     def select_project(self, project_name):
         project_elem = self.wait.until(EC.element_to_be_clickable(self.PROJECT_INPUT))
@@ -55,5 +55,5 @@ class NewIssuePage(BasePage):
         self.submit_issue()
         time.sleep(1)
 
-    def error_text(self):
-        return self.wait.until(EC.visibility_of_element_located(self.ERROR_DIV)).text
+    def error_text(self, text):
+        return text in self.wait.until(EC.visibility_of_element_located(self.ERROR_DIV)).text

@@ -21,13 +21,6 @@ def get_login_page(get_driver):
     return LoginPage(get_driver)
 
 
-@allure.step("Getting main page")
-@pytest.fixture(scope="class")
-def get_main_page(get_driver):
-    from src.pages.main_page import MainPage
-    return MainPage(get_driver)
-
-
 @allure.step("Getting new issue page")
 @pytest.fixture(scope="class")
 def get_new_issue_page(get_driver):
@@ -57,17 +50,17 @@ def get_issue_summary_page(get_driver):
 
 
 @allure.step("Login to Jira before tests started and logout after tests finished")
-@pytest.fixture(scope="class")
-def login_logout(get_login_page, get_main_page):
+@pytest.fixture(scope="function")
+def login_to_jira(get_driver):
+    from src.pages.login_page import LoginPage
+    login_page = LoginPage(get_driver)
     with allure.step("Open login page"):
-        get_login_page.open()
-    with allure.step("Call login method"):
-        get_login_page.login(login, password)
-    with allure.step("Wait until page is loaded"):
-        get_main_page.wait_until_page_is_loaded(10)
-    yield
-    with allure.step("Call logout method"):
-        get_main_page.logout()
+        login_page.open()
+    with allure.step("Login to JIRA"):
+        main_page = login_page.login(login, password)
+    yield main_page.wait_until_page_is_loaded(15)
+    with allure.step("Logout from JIRA"):
+        main_page.logout()
 
 
 @allure.step("Cleanup Jira from issues reported by test user")

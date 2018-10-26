@@ -22,7 +22,7 @@ class SearchPage(BasePage):
         return self
 
     def at_page(self):
-        return self.wait.until(EC.presence_of_element_located(self.TITLE_HEADER)).get_attribute("title") == "Search"
+        return self.wait.until(EC.presence_of_element_located(self.QUERY_INPUT)).is_enabled()
 
     def type_query(self, text):
         query_elem = self.wait.until(EC.visibility_of_element_located(self.QUERY_INPUT))
@@ -38,11 +38,12 @@ class SearchPage(BasePage):
         self.submit_query()
         time.sleep(2)
 
-    def total_number_of_issues(self):
+    def total_number_of_issues(self, text):
         total_elem = self.wait.until(EC.visibility_of_element_located(self.RESULTS_COUNT_TOTAL))
-        return total_elem.text
+        return text == total_elem.text
 
     def open_issue_with_summary(self, summary):
+        self.search_by_text(summary)
         issue_link = self.wait.until(
             EC.element_to_be_clickable(
                 (By.XPATH, "//a[contains(@class, 'issue-link') and contains(text(), '" + summary + "')]")))
