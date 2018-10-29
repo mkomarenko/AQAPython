@@ -21,7 +21,8 @@ class MainPage(BasePage):
         return self
 
     def at_page(self):
-        return self.wait.until(EC.presence_of_element_located(self.CREATE_BUTTON)).is_displayed()
+        element = self.driver.find_element(*self.CREATE_BUTTON)
+        return element.is_displayed()
 
     def open_create_issue_page(self):
         self.wait.until(EC.invisibility_of_element_located((By.XPATH, "//body/div[contains(@class, 'aui-blanket')]")))
