@@ -25,6 +25,7 @@ class LoginPage(BasePage):
         self.type_username(username)
         self.type_password(password)
         self.submit_login()
+        time.sleep(2)
         return MainPage(self.driver)
 
     def type_username(self, username):
