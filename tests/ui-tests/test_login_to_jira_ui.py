@@ -17,6 +17,9 @@ class TestLoginUI:
             login_page.open()
         with allure.step("Check that login page opened"):
             assert login_page.at_page()
+            allure.attach(get_driver.get_screenshot_as_png(),
+                          name="test_login_incorrect_username1",
+                          attachment_type=allure.attachment_type.PNG)
         with allure.step("Call login method"):
             login_page.login("wrong", password)
         with allure.step("Check that correct error is displayed"):
