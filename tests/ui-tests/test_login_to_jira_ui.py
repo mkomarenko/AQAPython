@@ -25,7 +25,7 @@ class TestLoginUI:
         with allure.step("Check that correct error is displayed"):
             assert login_page.username_error_text("Sorry, your username and password are incorrect")
             allure.attach(get_driver.get_screenshot_as_png(),
-                          name="test_login_incorrect_username",
+                          name="test_login_incorrect_username2",
                           attachment_type=allure.attachment_type.PNG)
 
     @allure.title("Login to Jira UI with incorrect password")

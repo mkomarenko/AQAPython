@@ -28,6 +28,9 @@ class TestCRUDIssueUI:
         main_page = MainPage(get_driver)
         with allure.step("Open new issue dialog"):
             new_issue_page = main_page.open_create_issue_page()
+            allure.attach(get_driver.get_screenshot_as_png(),
+                          name="test_create_issue1",
+                          attachment_type=allure.attachment_type.PNG)
         with allure.step("Check that new issue dialog is opened"):
             assert new_issue_page.at_page()
         with allure.step("Call create issue method"):
@@ -35,7 +38,7 @@ class TestCRUDIssueUI:
         with allure.step("Check that issue link text contains issue summary"):
             assert main_page.issue_link_text(summary)
             allure.attach(get_driver.get_screenshot_as_png(),
-                          name="test_create_issue",
+                          name="test_create_issue2",
                           attachment_type=allure.attachment_type.PNG)
 
     @allure.title("Create issue UI negative (with empty summary)")
