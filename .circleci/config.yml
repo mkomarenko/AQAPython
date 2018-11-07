@@ -35,7 +35,7 @@ jobs:
           name: run tests
           command: |
             . venv/bin/activate
-            pytest --alluredir=/tmp/test-reports -v -l
+            pytest -v -m ui_test --alluredir=/tmp/test-reports -v -l
 
       - run:
           name: generate report

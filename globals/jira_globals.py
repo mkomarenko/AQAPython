@@ -1,4 +1,4 @@
 base_url = 'http://jira.hillel.it:8080'
-login = 'Maksym_Komarenko'
-password = 'Mk810426@odsu_'
-project = "AQAPYTHON"
+login = 'webinar5'
+password = 'webinar5'
+project = "WEBINAR"

@@ -1,3 +1,4 @@
+import re
 import time
 
 from selenium.webdriver.common.by import By
@@ -13,8 +14,9 @@ class SearchPage(BasePage):
     QUERY_INPUT = (By.ID, "searcher-query")
     ISSUE_TABLE = (By.ID, "issuetable")
     ISSUE_LINK = (By.CSS_SELECTOR, "a.issue-link")
-    RESULTS_COUNT_TEXT = (By.CSS_SELECTOR, "span.results-count-text")
-    RESULTS_COUNT_TOTAL = (By.CSS_SELECTOR, "span.results-count-total.results-count-link")
+    SPLIT_ISSUE_LINK = (By.CSS_SELECTOR, "a.splitview-issue-link")
+    RESULT_COUNT_TEXT = (By.CLASS_NAME, "showing")
+    RESULT_COUNT = (By.CSS_SELECTOR, ".results-count-total.results-count-link")
     SEARCH_BUTTON = (By.CSS_SELECTOR, "button.aui-button.aui-button-subtle.search-button")
 
     def open(self):
@@ -38,14 +40,17 @@ class SearchPage(BasePage):
         self.submit_query()
         time.sleep(2)
 
-    def total_number_of_issues(self, text):
-        total_elem = self.wait.until(EC.visibility_of_element_located(self.RESULTS_COUNT_TOTAL))
-        return text == total_elem.text
+    def total_number_of_issues(self, expected_number):
+        result_elem = self.wait.until(EC.visibility_of_element_located(self.RESULT_COUNT))
+        # g = re.compile(" of (\d{1,10})").search(result_elem.text)
+        total_count = int(result_elem.text)
+        # if g:
+        #    total_count = int(g.group(1))
+        # else:
+        #    print("No matches found")
+        return total_count == expected_number
 
     def open_issue_with_summary(self, summary):
         self.search_by_text(summary)
-        issue_link = self.wait.until(
-            EC.element_to_be_clickable(
-                (By.XPATH, "//a[contains(@class, 'issue-link') and contains(text(), '" + summary + "')]")))
-        issue_link.click()
+        self.wait.until(EC.element_to_be_clickable(self.ISSUE_LINK)).click()
 

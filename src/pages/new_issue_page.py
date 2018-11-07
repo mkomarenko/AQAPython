@@ -23,21 +23,19 @@ class NewIssuePage(BasePage):
 
     def select_project(self, project_name):
         project_elem = self.wait.until(EC.element_to_be_clickable(self.PROJECT_INPUT))
-        project_elem.clear()
+        project_elem.click()
         project_elem.send_keys(project_name)
         project_elem.send_keys(Keys.RETURN)
-        time.sleep(1)
 
     def select_issue_type(self, issue_type):
         issue_elem = self.wait.until(EC.element_to_be_clickable(self.ISSUE_TYPE_INPUT))
-        issue_elem.clear()
+        issue_elem.click()
         issue_elem.send_keys(issue_type)
         issue_elem.send_keys(Keys.RETURN)
-        time.sleep(1)
 
     def type_summary(self, summary):
         summary_elem = self.wait.until(EC.element_to_be_clickable(self.SUMMARY_INPUT))
-        summary_elem.clear()
+        summary_elem.click()
         summary_elem.send_keys(summary)
 
     def submit_issue(self):
@@ -46,14 +44,16 @@ class NewIssuePage(BasePage):
     def cancel_issue(self):
         self.wait.until(EC.element_to_be_clickable(self.CANCEL_LINK)).click()
         self.driver.switch_to.alert.accept()
-        time.sleep(1)
+        time.sleep(2)
 
     def create_issue(self, project_name, issue_type, summary):
         self.select_project(project_name)
-        self.select_issue_type(issue_type)
-        self.type_summary(summary)
-        self.submit_issue()
         time.sleep(1)
+        self.select_issue_type(issue_type)
+        time.sleep(1)
+        self.type_summary(summary)
+        time.sleep(1)
+        self.submit_issue()
 
     def error_text(self, text):
         return text in self.wait.until(EC.visibility_of_element_located(self.ERROR_DIV)).text
