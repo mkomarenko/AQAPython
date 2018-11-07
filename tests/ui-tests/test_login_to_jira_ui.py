@@ -4,7 +4,6 @@ import pytest
 from globals.jira_globals import *
 from src.pages.login_page import LoginPage
 from src.pages.main_page import MainPage
-from tests.base_test import BaseTest
 
 
 @pytest.mark.ui_test
