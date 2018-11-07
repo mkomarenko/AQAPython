@@ -40,6 +40,7 @@ class NewIssuePage(BasePage):
 
     def submit_issue(self):
         self.wait.until(EC.element_to_be_clickable(self.SUBMIT_BUTTON)).click()
+        time.sleep(1)
 
     def cancel_issue(self):
         self.wait.until(EC.element_to_be_clickable(self.CANCEL_LINK)).click()
@@ -54,6 +55,7 @@ class NewIssuePage(BasePage):
         self.type_summary(summary)
         time.sleep(1)
         self.submit_issue()
+        time.sleep(1)
 
     def error_text(self, text):
         return text in self.wait.until(EC.visibility_of_element_located(self.ERROR_DIV)).text
