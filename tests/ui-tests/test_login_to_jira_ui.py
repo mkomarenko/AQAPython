@@ -7,40 +7,8 @@ from src.pages.main_page import MainPage
 
 
 @pytest.mark.ui_test
+@pytest.mark.incremental
 class TestLoginUI:
-
-    @allure.title("Login to Jira UI with incorrect username")
-    def test_login_incorrect_username(self, browser):
-        login_page = LoginPage(browser)
-        with allure.step("Open login page"):
-            login_page.open()
-        with allure.step("Check that login page opened"):
-            assert login_page.at_page()
-            allure.attach(browser.get_screenshot_as_png(),
-                          name="test_login_incorrect_username1",
-                          attachment_type=allure.attachment_type.PNG)
-        with allure.step("Call login method"):
-            login_page.login("wrong", password)
-        with allure.step("Check that correct error is displayed"):
-            assert login_page.username_error_text("Sorry, your username and password are incorrect")
-            allure.attach(browser.get_screenshot_as_png(),
-                          name="test_login_incorrect_username2",
-                          attachment_type=allure.attachment_type.PNG)
-
-    @allure.title("Login to Jira UI with incorrect password")
-    def test_login_incorrect_password(self, browser):
-        login_page = LoginPage(browser)
-        with allure.step("Open login page"):
-            login_page.open()
-        with allure.step("Check that login page opened"):
-            assert login_page.at_page()
-        with allure.step("Call login method"):
-            login_page.login(login, "wrong")
-        with allure.step("Check that correct error is displayed"):
-            assert login_page.username_error_text("Sorry, your username and password are incorrect")
-            allure.attach(browser.get_screenshot_as_png(),
-                          name="test_login_incorrect_password",
-                          attachment_type=allure.attachment_type.PNG)
 
     @allure.title("Login to Jira UI")
     def test_login_correct_creds(self, browser):
@@ -75,3 +43,38 @@ class TestLoginUI:
             allure.attach(browser.get_screenshot_as_png(),
                           name="test_logout",
                           attachment_type=allure.attachment_type.PNG)
+
+    @allure.title("Login to Jira UI with incorrect username")
+    def test_login_incorrect_username(self, browser):
+        login_page = LoginPage(browser)
+        with allure.step("Open login page"):
+            login_page.open()
+        with allure.step("Check that login page opened"):
+            assert login_page.at_page()
+            allure.attach(browser.get_screenshot_as_png(),
+                          name="test_login_incorrect_username1",
+                          attachment_type=allure.attachment_type.PNG)
+        with allure.step("Call login method"):
+            login_page.login("wrong", password)
+        with allure.step("Check that correct error is displayed"):
+            assert login_page.username_error_text("Sorry, your username and password are incorrect")
+            allure.attach(browser.get_screenshot_as_png(),
+                          name="test_login_incorrect_username2",
+                          attachment_type=allure.attachment_type.PNG)
+
+    @allure.title("Login to Jira UI with incorrect password")
+    def test_login_incorrect_password(self, browser):
+        login_page = LoginPage(browser)
+        with allure.step("Open login page"):
+            login_page.open()
+        with allure.step("Check that login page opened"):
+            assert login_page.at_page()
+        with allure.step("Call login method"):
+            login_page.login(login, "wrong")
+        with allure.step("Check that correct error is displayed"):
+            assert login_page.username_error_text("Sorry, your username and password are incorrect")
+            allure.attach(browser.get_screenshot_as_png(),
+                          name="test_login_incorrect_password",
+                          attachment_type=allure.attachment_type.PNG)
+
+
