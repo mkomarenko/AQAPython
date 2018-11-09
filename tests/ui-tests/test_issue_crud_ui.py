@@ -9,7 +9,7 @@ from src.pages.search_page import SearchPage
 
 
 @pytest.mark.ui_test
-@pytest.mark.usefixtures("login_to_jira", "jira_test_data")
+@pytest.mark.usefixtures("login_to_jira", "jira_test_data", "screenshot_on_failure")
 class TestCRUDIssueUI:
 
     project_name = "Webinar (WEBINAR)"

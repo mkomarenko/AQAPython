@@ -8,6 +8,7 @@ from src.pages.main_page import MainPage
 
 @pytest.mark.ui_test
 @pytest.mark.incremental
+@pytest.mark.usefixtures("screenshot_on_failure")
 class TestLoginUI:
 
     @allure.title("Login to Jira UI")

@@ -52,17 +52,17 @@ def jira_test_data():
 
 @pytest.hookimpl(hookwrapper=True, tryfirst=True)
 def pytest_runtest_makereport(item, call):
+    outcome = yield
+    rep = outcome.get_result()
+    setattr(item, "rep_" + rep.when, rep)
+    return rep
+
+
+def pytest_runtest_makereport(item, call):
     if "incremental" in item.keywords:
         if call.excinfo is not None:
             parent = item.parent
             parent._previousfailed = item
-    outcome = yield
-    rep = outcome.get_result()
-    if browser is not None:
-        if rep.when in 'call' and rep.failed:
-            allure.attach(browser.get_screenshot_as_png(),
-                          name=item._pyfuncitem.name,
-                          attachment_type=allure.attachment_type.PNG)
 
 
 def pytest_runtest_setup(item):
@@ -70,3 +70,18 @@ def pytest_runtest_setup(item):
         previousfailed = getattr(item.parent, "_previousfailed", None)
         if previousfailed is not None:
             pytest.xfail("previous test failed (%s)" % previousfailed.name)
+
+
+@pytest.fixture(scope="function")
+def screenshot_on_failure(request, browser):
+    yield
+    if request.node.rep_call.failed:
+        # Make the screen-shot if test failed:
+        try:
+            browser.execute_script("document.body.bgColor = 'white';")
+
+            allure.attach(browser.get_screenshot_as_png(),
+                          name=request.function.__name__,
+                          attachment_type=allure.attachment_type.PNG)
+        except:
+            pass  # just ignore
