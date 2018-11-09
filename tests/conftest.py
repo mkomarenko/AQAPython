@@ -50,11 +50,19 @@ def jira_test_data():
             JiraWebService.delete_issue_by_id(issue.get('id'))
 
 
+@pytest.hookimpl(hookwrapper=True, tryfirst=True)
 def pytest_runtest_makereport(item, call):
     if "incremental" in item.keywords:
         if call.excinfo is not None:
             parent = item.parent
             parent._previousfailed = item
+    outcome = yield
+    rep = outcome.get_result()
+    if browser is not None:
+        if rep.when in 'call' and rep.failed:
+            allure.attach(browser.get_screenshot_as_png(),
+                          name=item._pyfuncitem.name,
+                          attachment_type=allure.attachment_type.PNG)
 
 
 def pytest_runtest_setup(item):
