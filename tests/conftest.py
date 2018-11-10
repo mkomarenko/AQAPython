@@ -73,15 +73,9 @@ def pytest_runtest_setup(item):
 
 
 @pytest.fixture(scope="function")
-def screenshot_on_failure(request, browser):
+def take_screenshot(request, browser):
     yield
-    if request.node.rep_call.failed:
-        # Make the screen-shot if test failed:
-        try:
-            browser.execute_script("document.body.bgColor = 'white';")
-
-            allure.attach(browser.get_screenshot_as_png(),
-                          name=request.function.__name__,
-                          attachment_type=allure.attachment_type.PNG)
-        except:
-            pass  # just ignore
+    browser.execute_script("document.body.bgColor = 'white';")
+    allure.attach(browser.get_screenshot_as_png(),
+                  name=request.function.__name__,
+                  attachment_type=allure.attachment_type.PNG)
