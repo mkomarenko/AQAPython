@@ -21,7 +21,7 @@ class TestLoginUI:
         with allure.step("Call login method"):
             main_page = login_page.login(login, password)
             allure.attach(browser.get_screenshot_as_png(),
-                          name="test_login_correct_creds1",
+                          name="login_correct_creds",
                           attachment_type=allure.attachment_type.PNG)
         with allure.step("Check that main page opened"):
             assert main_page.at_page()

@@ -25,21 +25,24 @@ class EditIssuePage(BasePage):
         summary_elem.send_keys(summary)
 
     def type_priority(self, summary):
-        prio_elem = self.wait.until(EC.visibility_of_element_located(self.PRIORITY_INPUT))
-        prio_elem.clear()
+        prio_elem = self.wait.until(EC.element_to_be_clickable(self.PRIORITY_INPUT))
+        prio_elem.click()
         prio_elem.send_keys(summary)
 
     def type_assignee(self, summary):
-        assignee_elem = self.wait.until(EC.visibility_of_element_located(self.ASSIGNEE_INPUT))
-        assignee_elem.clear()
+        assignee_elem = self.wait.until(EC.element_to_be_clickable(self.ASSIGNEE_INPUT))
+        assignee_elem.click()
         assignee_elem.send_keys(summary)
 
     def submit_update(self):
         self.wait.until(EC.element_to_be_clickable(self.UPDATE_BUTTON)).click()
-        time.sleep(3)
 
     def update_issue(self, summary, priority, assignee):
         self.type_summary(summary)
+        time.sleep(1)
         self.type_priority(priority)
+        time.sleep(1)
         self.type_assignee(assignee)
+        time.sleep(1)
         self.submit_update()
+        time.sleep(2)

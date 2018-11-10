@@ -29,7 +29,7 @@ class MainPage(BasePage):
         self.wait.until(EC.element_to_be_clickable(self.CREATE_BUTTON)).click()
         return NewIssuePage(self.driver)
 
-    def issue_link_text(self, substring):
+    def issue_link_contains(self, substring):
         text = self.wait.until(EC.visibility_of_element_located(self.ISSUE_LINK)).text
         self.wait.until(EC.invisibility_of_element_located(self.ISSUE_LINK))
         return substring in text

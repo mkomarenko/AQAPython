@@ -16,10 +16,10 @@ class IssueSummaryPage(BasePage):
     def open_edit_issue(self):
         self.wait.until(EC.element_to_be_clickable(self.EDIT_BUTTON)).click()
 
-    def get_summary_val(self):
-        return self.wait.until(EC.visibility_of_element_located(self.SUMMARY_FIELD)).text
+    def issue_summary_equals(self, string):
+        return string == self.wait.until(EC.visibility_of_element_located(self.SUMMARY_FIELD)).text
 
-    def get_priority_val(self):
-        return self.wait.until(EC.visibility_of_element_located(self.PRIORITY_FIELD)).text
+    def priority_equals(self, string):
+        return string == self.wait.until(EC.visibility_of_element_located(self.PRIORITY_FIELD)).text
 
 
