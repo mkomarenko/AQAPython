@@ -9,8 +9,22 @@ from globals.jira_globals import *
 def browser():
     from selenium import webdriver
     from webdriver_manager.chrome import ChromeDriverManager
-    with webdriver.Chrome(ChromeDriverManager().install()) as browser:
-        yield browser
+    from webdriver_manager.firefox import GeckoDriverManager
+    from webdriver_manager.microsoft import IEDriverManager
+
+    br = pytest.config.getoption("-B")
+    if br.lower() == "firefox":
+        browser = webdriver.Firefox(executable_path=GeckoDriverManager().install())
+    elif br.lower() == "chrome":
+        browser = webdriver.Chrome(executable_path=ChromeDriverManager().install())
+    elif br.lower() == "ie":
+        browser = webdriver.Ie(executable_path=IEDriverManager().install())
+    else:
+        raise Exception(
+            '{} is unknown browser. Please specify one of the following: firefox(default), chrome or ie'.format(br))
+    yield browser
+    browser.close()
+    browser.quit()
 
 
 @allure.step("Login to Jira before tests started and logout after tests finished")
@@ -22,7 +36,7 @@ def login_to_jira(browser):
         login_page.open()
     with allure.step("Login to JIRA"):
         main_page = login_page.login(login, password)
-    yield
+    yield main_page
     with allure.step("Logout from JIRA"):
         main_page.logout()
 
@@ -79,3 +93,10 @@ def take_screenshot(request, browser):
     allure.attach(browser.get_screenshot_as_png(),
                   name=request.function.__name__,
                   attachment_type=allure.attachment_type.PNG)
+
+
+def pytest_addoption(parser):
+    parser.addoption("-B", "--browser",
+                     dest="browser",
+                     default="firefox",
+                     help="Browser. Valid options are firefox, ie and chrome")

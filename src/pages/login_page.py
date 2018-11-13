@@ -26,6 +26,7 @@ class LoginPage(BasePage):
         self.type_password(password)
         self.submit_login()
         time.sleep(2)
+        # self.wait.until(EC.visibility_of_element_located((By.ID, "create_link")))
         return MainPage(self.driver)
 
     def type_username(self, username):

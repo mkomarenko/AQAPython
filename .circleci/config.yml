@@ -35,7 +35,7 @@ jobs:
           name: run tests
           command: |
             . venv/bin/activate
-            pytest -v -m ui_test --alluredir=/tmp/test-reports -v -l
+            pytest -m ui_test --alluredir=/tmp/test-reports -v -l -B chrome
 
       - run:
           name: generate report
