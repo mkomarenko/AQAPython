@@ -30,12 +30,14 @@ class NewIssuePage(BasePage):
     def select_issue_type(self, issue_type):
         issue_elem = self.wait.until(EC.element_to_be_clickable(self.ISSUE_TYPE_INPUT))
         issue_elem.click()
+        issue_elem = self.wait.until(EC.element_to_be_clickable(self.ISSUE_TYPE_INPUT))
         issue_elem.send_keys(issue_type)
         issue_elem.send_keys(Keys.RETURN)
 
     def type_summary(self, summary):
         summary_elem = self.wait.until(EC.element_to_be_clickable(self.SUMMARY_INPUT))
         summary_elem.click()
+        summary_elem = self.wait.until(EC.element_to_be_clickable(self.SUMMARY_INPUT))
         summary_elem.send_keys(summary)
 
     def submit_issue(self):

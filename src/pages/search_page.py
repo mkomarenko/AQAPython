@@ -52,5 +52,5 @@ class SearchPage(BasePage):
 
     def open_issue_with_summary(self, summary):
         self.search_by_text(summary)
-        self.wait.until(EC.element_to_be_clickable(self.ISSUE_LINK)).click()
+        self.wait.until(EC.element_to_be_clickable((By.LINK_TEXT, summary))).click()
 

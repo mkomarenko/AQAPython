@@ -1,6 +1,7 @@
 import time
 
 from selenium.webdriver.common.by import By
+from selenium.webdriver.common.keys import Keys
 
 from src.pages.base_page import BasePage
 from selenium.webdriver.support import expected_conditions as EC
@@ -27,12 +28,16 @@ class EditIssuePage(BasePage):
     def type_priority(self, summary):
         prio_elem = self.wait.until(EC.element_to_be_clickable(self.PRIORITY_INPUT))
         prio_elem.click()
+        prio_elem = self.wait.until(EC.element_to_be_clickable(self.PRIORITY_INPUT))
         prio_elem.send_keys(summary)
+        prio_elem.send_keys(Keys.RETURN)
 
     def type_assignee(self, summary):
         assignee_elem = self.wait.until(EC.element_to_be_clickable(self.ASSIGNEE_INPUT))
         assignee_elem.click()
+        assignee_elem = self.wait.until(EC.element_to_be_clickable(self.ASSIGNEE_INPUT))
         assignee_elem.send_keys(summary)
+        assignee_elem.send_keys(Keys.RETURN)
 
     def submit_update(self):
         self.wait.until(EC.element_to_be_clickable(self.UPDATE_BUTTON)).click()
