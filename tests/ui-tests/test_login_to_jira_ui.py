@@ -14,12 +14,13 @@ class TestLoginUI:
     @allure.title("Login to Jira UI")
     def test_login_correct_creds(self, browser):
         login_page = LoginPage(browser)
+        main_page = MainPage(browser)
         with allure.step("Open login page"):
             login_page.open()
         with allure.step("Check that login page opened"):
             assert login_page.at_page()
         with allure.step("Call login method"):
-            main_page = login_page.login(login, password)
+            login_page.login(login, password)
             allure.attach(browser.get_screenshot_as_png(),
                           name="login_correct_creds",
                           attachment_type=allure.attachment_type.PNG)

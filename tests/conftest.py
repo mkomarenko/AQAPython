@@ -31,12 +31,17 @@ def browser():
 @pytest.fixture(scope="function")
 def login_to_jira(browser):
     from src.pages.login_page import LoginPage
+    from src.pages.main_page import MainPage
     login_page = LoginPage(browser)
+    main_page = MainPage(browser)
     with allure.step("Open login page"):
         login_page.open()
     with allure.step("Login to JIRA"):
-        main_page = login_page.login(login, password)
-    yield main_page
+        login_page.login(login, password)
+    if main_page.at_page():
+        yield main_page
+    else:
+        raise Exception('Failed to login to Jira')
     with allure.step("Logout from JIRA"):
         main_page.logout()
 

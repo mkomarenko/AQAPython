@@ -1,11 +1,8 @@
-import time
-
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 
 from globals.jira_globals import base_url
 from src.pages.base_page import BasePage
-from src.pages.main_page import MainPage
 
 
 class LoginPage(BasePage):
@@ -25,18 +22,17 @@ class LoginPage(BasePage):
         self.type_username(username)
         self.type_password(password)
         self.submit_login()
-        time.sleep(2)
-        # self.wait.until(EC.visibility_of_element_located((By.ID, "create_link")))
-        return MainPage(self.driver)
 
     def type_username(self, username):
         login_input = self.wait.until(EC.visibility_of_element_located(self.LOGIN_INPUT))
         login_input.clear()
+        login_input = self.wait.until(EC.visibility_of_element_located(self.LOGIN_INPUT))
         login_input.send_keys(username)
 
     def type_password(self, password):
         password_input = self.wait.until(EC.visibility_of_element_located(self.PASSWORD_INPUT))
         password_input.clear()
+        password_input = self.wait.until(EC.visibility_of_element_located(self.PASSWORD_INPUT))
         password_input.send_keys(password)
 
     def submit_login(self):
