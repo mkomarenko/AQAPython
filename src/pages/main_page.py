@@ -21,7 +21,12 @@ class MainPage(BasePage):
         return self
 
     def at_page(self):
-        return self.wait.until(EC.visibility_of_element_located(self.CREATE_BUTTON)).is_displayed
+        from selenium.common.exceptions import TimeoutException
+        try:
+            self.wait.until(EC.visibility_of_element_located(self.CREATE_BUTTON))
+            return True
+        except TimeoutException:
+            return False
 
     def open_create_issue_page(self):
         # self.wait.until(EC.invisibility_of_element_located((By.XPATH, "//body/div[contains(@class, 'aui-blanket')]")))
