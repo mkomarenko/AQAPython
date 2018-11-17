@@ -37,7 +37,7 @@ class EditIssuePage(BasePage):
         assignee_elem.click()
         assignee_elem = self.wait.until(EC.element_to_be_clickable(self.ASSIGNEE_INPUT))
         assignee_elem.send_keys(summary)
-        assignee_elem.send_keys(Keys.RETURN)
+        # assignee_elem.send_keys(Keys.RETURN)
 
     def submit_update(self):
         self.wait.until(EC.element_to_be_clickable(self.UPDATE_BUTTON)).click()
