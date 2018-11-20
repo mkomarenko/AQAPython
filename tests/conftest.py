@@ -29,21 +29,35 @@ def browser():
 
 @allure.step("Login to Jira before tests started and logout after tests finished")
 @pytest.fixture(scope="function")
-def login_to_jira(browser):
+def login_to_jira(request, browser):
     from src.pages.login_page import LoginPage
     from src.pages.main_page import MainPage
     login_page = LoginPage(browser)
     main_page = MainPage(browser)
+
     with allure.step("Open login page"):
         login_page.open()
     with allure.step("Login to JIRA"):
         login_page.login(login, password)
-    if main_page.at_page():
-        yield main_page
-    else:
-        raise Exception('Failed to login to Jira')
-    with allure.step("Logout from JIRA"):
-        main_page.logout()
+
+    def take_screenshot():
+        with allure.step("Taking screenshot"):
+            browser.execute_script("document.body.bgColor = 'white';")
+            allure.attach(browser.get_screenshot_as_png(),
+                          name=request.function.__name__,
+                          attachment_type=allure.attachment_type.PNG)
+
+    def logout():
+        with allure.step("Logout from JIRA"):
+            main_page.logout()
+
+    request.addfinalizer(take_screenshot)
+    request.addfinalizer(logout)
+
+    with allure.step("Wait until main page is loaded"):
+        main_page.wait_until_loaded()
+
+    return main_page
 
 
 @pytest.fixture(scope="class")
@@ -89,15 +103,6 @@ def pytest_runtest_setup(item):
         previousfailed = getattr(item.parent, "_previousfailed", None)
         if previousfailed is not None:
             pytest.xfail("previous test failed (%s)" % previousfailed.name)
-
-
-@pytest.fixture(scope="function")
-def take_screenshot(request, browser):
-    yield
-    browser.execute_script("document.body.bgColor = 'white';")
-    allure.attach(browser.get_screenshot_as_png(),
-                  name=request.function.__name__,
-                  attachment_type=allure.attachment_type.PNG)
 
 
 def pytest_addoption(parser):

@@ -28,6 +28,9 @@ class MainPage(BasePage):
         except TimeoutException:
             return False
 
+    def wait_until_loaded(self):
+        self.wait.until(EC.visibility_of_element_located(self.CREATE_BUTTON))
+
     def open_create_issue_page(self):
         # self.wait.until(EC.invisibility_of_element_located((By.XPATH, "//body/div[contains(@class, 'aui-blanket')]")))
         self.wait.until(EC.invisibility_of_element_located((By.CSS_SELECTOR, "div.aui-flag")))
@@ -45,7 +48,3 @@ class MainPage(BasePage):
         self.wait.until(EC.element_to_be_clickable(self.USER_OPTIONS)).click()
         self.wait.until(EC.element_to_be_clickable(self.LOGOUT_LINK)).click()
         return LogoutPage(self.driver)
-
-
-
-
