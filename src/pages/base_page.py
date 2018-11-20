@@ -14,3 +14,8 @@ class BasePage:
         self.driver = driver
         self.wait = WebDriverWait(driver, 30)
 
+    def take_screenshot(self, name):
+        import allure
+        allure.attach(self.driver.get_screenshot_as_png(),
+                      name=name,
+                      attachment_type=allure.attachment_type.PNG)

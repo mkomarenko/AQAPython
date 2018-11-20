@@ -24,15 +24,13 @@ class LoginPage(BasePage):
         self.submit_login()
 
     def type_username(self, username):
-        login_input = self.wait.until(EC.visibility_of_element_located(self.LOGIN_INPUT))
+        login_input = self.wait.until(EC.element_to_be_clickable(self.LOGIN_INPUT))
         login_input.clear()
-        login_input = self.wait.until(EC.visibility_of_element_located(self.LOGIN_INPUT))
         login_input.send_keys(username)
 
     def type_password(self, password):
-        password_input = self.wait.until(EC.visibility_of_element_located(self.PASSWORD_INPUT))
+        password_input = self.wait.until(EC.element_to_be_clickable(self.PASSWORD_INPUT))
         password_input.clear()
-        password_input = self.wait.until(EC.visibility_of_element_located(self.PASSWORD_INPUT))
         password_input.send_keys(password)
 
     def submit_login(self):

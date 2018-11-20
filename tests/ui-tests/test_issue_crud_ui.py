@@ -24,13 +24,11 @@ class TestCRUDIssueUI:
 
     @allure.title("Create issue UI")
     @pytest.mark.parametrize("summary, issue_type", test_data)
-    def test_create_issue(self, browser, summary, issue_type):
-        main_page = MainPage(browser)
+    def test_create_issue(self, login_to_jira, summary, issue_type):
+        main_page = login_to_jira
         with allure.step("Open new issue dialog"):
             new_issue_page = main_page.open_create_issue_page()
-            allure.attach(browser.get_screenshot_as_png(),
-                          name="test_create_issue1",
-                          attachment_type=allure.attachment_type.PNG)
+            new_issue_page.take_screenshot("new_issue_page")
         with allure.step("Check that new issue dialog is opened"):
             assert new_issue_page.at_page()
         with allure.step("Call create issue method"):
