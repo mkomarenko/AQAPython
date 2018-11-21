@@ -5,7 +5,7 @@ from globals.jira_globals import *
 
 
 @allure.step("Getting web driver")
-@pytest.fixture(scope="session")
+@pytest.fixture(scope="function")
 def browser():
     from selenium import webdriver
     from webdriver_manager.chrome import ChromeDriverManager
@@ -47,20 +47,18 @@ def login_to_jira(request, browser):
                           name=request.function.__name__,
                           attachment_type=allure.attachment_type.PNG)
 
-    def logout():
-        with allure.step("Logout from JIRA"):
-            main_page.logout()
-
     request.addfinalizer(take_screenshot)
-    request.addfinalizer(logout)
 
     with allure.step("Wait until main page is loaded"):
         main_page.wait_until_loaded()
 
-    return main_page
+    yield main_page
+
+    with allure.step("Logout from JIRA"):
+        main_page.logout()
 
 
-@pytest.fixture(scope="class")
+@pytest.fixture(scope="function")
 def jira_test_data():
     from rest.jira_web_service import JiraWebService
 
@@ -76,11 +74,20 @@ def jira_test_data():
             issue_ids.append(r.json()['id'])
     yield
     with allure.step("Cleanup issues"):
-        r = JiraWebService.search_issues_by_jql(
-            "reporter = currentuser() AND summary ~ 'Maxim' AND project = " + project,
-            ["id"])
-        for issue in r.json()['issues']:
-            JiraWebService.delete_issue_by_id(issue.get('id'))
+        for issue_id in issue_ids:
+            JiraWebService.delete_issue_by_id(issue_id)
+
+
+@pytest.fixture(scope="function")
+def jira_cleanup(request):
+    from rest.jira_web_service import JiraWebService
+    summary_contains = "Maxim"
+    yield
+    r = JiraWebService.search_issues_by_jql(
+        "reporter = currentuser() AND summary ~ '" + summary_contains + "' AND project = " + project,
+        ["id"])
+    for issue in r.json()['issues']:
+        JiraWebService.delete_issue_by_id(issue.get('id'))
 
 
 @pytest.hookimpl(hookwrapper=True, tryfirst=True)

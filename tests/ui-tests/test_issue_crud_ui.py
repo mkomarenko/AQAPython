@@ -9,7 +9,7 @@ from src.pages.search_page import SearchPage
 
 
 @pytest.mark.ui_test
-@pytest.mark.usefixtures("login_to_jira", "jira_test_data")
+@pytest.mark.usefixtures("login_to_jira")
 class TestCRUDIssueUI:
 
     project_name = "Webinar (WEBINAR)"
@@ -24,6 +24,7 @@ class TestCRUDIssueUI:
 
     @allure.title("Create issue UI")
     @pytest.mark.parametrize("summary, issue_type", test_data)
+    @pytest.mark.usefixtures("jira_cleanup")
     def test_create_issue(self, login_to_jira, summary, issue_type):
         main_page = login_to_jira
         with allure.step("Open new issue dialog"):
@@ -80,6 +81,7 @@ class TestCRUDIssueUI:
             assert main_page.at_page()
 
     @allure.title("Search 5 issues UI")
+    @pytest.mark.usefixtures("jira_test_data")
     def test_search_five_issues(self, browser):
         search_page = SearchPage(browser)
         with allure.step("Open search issues page"):
@@ -92,6 +94,7 @@ class TestCRUDIssueUI:
             assert search_page.total_number_of_issues(5)
 
     @allure.title("Search 1 issue UI")
+    @pytest.mark.usefixtures("jira_test_data")
     def test_search_one_issue(self, browser):
         search_page = SearchPage(browser)
         with allure.step("Open search issues page"):
@@ -104,6 +107,7 @@ class TestCRUDIssueUI:
             assert search_page.total_number_of_issues(1)
 
     @allure.title("Update issue UI")
+    @pytest.mark.usefixtures("jira_test_data")
     def test_update_issue(self, browser):
         summary = "Maxim search issue 2"
         new_prio = "Medium"

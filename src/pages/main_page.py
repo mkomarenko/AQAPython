@@ -29,7 +29,9 @@ class MainPage(BasePage):
             return False
 
     def wait_until_loaded(self):
-        self.wait.until(EC.visibility_of_element_located(self.CREATE_BUTTON))
+        from selenium.webdriver.support.wait import WebDriverWait
+        wait = WebDriverWait(self.driver, 30)
+        wait.until(EC.visibility_of_element_located(self.CREATE_BUTTON))
 
     def open_create_issue_page(self):
         # self.wait.until(EC.invisibility_of_element_located((By.XPATH, "//body/div[contains(@class, 'aui-blanket')]")))
