@@ -18,22 +18,17 @@ class TestLoginUI:
             login_page.open()
         with allure.step("Check that login page opened"):
             assert login_page.at_page()
-        with allure.step("Call login method"):
+        with allure.step("Login to JIRA with correct credentials"):
             login_page.login(login, password)
             allure.attach(browser.get_screenshot_as_png(),
-                          name="login_correct_creds",
+                          name="login_correct_creds1",
                           attachment_type=allure.attachment_type.PNG)
         with allure.step("Check that main page opened"):
             assert main_page.at_page()
             allure.attach(browser.get_screenshot_as_png(),
                           name="test_login_correct_creds2",
                           attachment_type=allure.attachment_type.PNG)
-
-    @allure.title("Logout from Jira UI")
-    def test_logout(self, browser):
-        main_page = MainPage(browser)
-        login_page = LoginPage(browser)
-        with allure.step("Call logout method"):
+        with allure.step("Logout from JIRA"):
             logout_page = main_page.logout()
         with allure.step("Cheсk that logout page appears"):
             assert logout_page.at_page()
