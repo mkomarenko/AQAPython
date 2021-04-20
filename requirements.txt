@@ -15,7 +15,7 @@ lxml==4.2.5
 more-itertools==4.3.0
 namedlist==1.7
 pluggy==0.7.1
-py==1.6.0
+py==1.10.0
 pytest==3.7.4
 pytest-forked==0.2
 pytest-rerunfailures==4.1
